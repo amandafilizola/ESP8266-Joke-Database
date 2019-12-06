@@ -1,14 +1,13 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
-
 #include <LiquidCrystal_I2C.h>
 
 // set the LCD number of columns and rows
 int lcdColumns = 20;
 int lcdRows = 4;
 
-const char* ssid = "ASUSAmanda";
-const char* password = "olokomeu";
+const char* ssid = "AndroidAPDF90";
+const char* password = "ibfu0845";
 
 String piada = "";
 int stringStart = 0;
@@ -51,7 +50,6 @@ void setup()
       delay(250);
       lcd.clear();
     }
-    
     lcd.setCursor(6, 1);
     lcd.print("Conectado");
     Serial.println("Conectou");
@@ -88,8 +86,7 @@ void loop()
     {
       stringStart = 0;
       stringStop = 0;
-    }
-  
+    } 
 }
 
 String request() 
@@ -105,18 +102,15 @@ String request()
     if (httpCode > 0)
     { //Check the returning code
       payload = http.getString();   //Get the request response payload
-      //Serial.println(payload);                     //Print the response payload
     }
     http.end();   //Close connection
   }
-  //Serial.println(payload);
   return payload;
 }
 
 
 void scroll_sup()
-{
-  lcd.clear();
+{ 
   if(stringStart == 0 && scrollCursor > 0)
   {
     scrollCursor--;
@@ -124,11 +118,13 @@ void scroll_sup()
   }
   else if(stringStart == stringStop)
   {
+    lcd.clear();
     stringStart = stringStop = 0;
     scrollCursor = 20;
   }
   else if(stringStop == piada.length() && scrollCursor == 0)
   {
+    lcd.clear();
     stringStart++;
   }
   else
